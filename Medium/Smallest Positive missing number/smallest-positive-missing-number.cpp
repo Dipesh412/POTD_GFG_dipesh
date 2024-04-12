@@ -12,27 +12,12 @@ class Solution
     int missingNumber(int arr[], int n) 
     { 
         sort(arr,arr+n);
-        int flag=0;
-        int i=0;
-        for(i=0; i<n; i++){
-            if(arr[i]>=0){
-                if(arr[i]==1){
-                    flag=1;
-                   
-                }
-                if(arr[i+1]-1!=arr[i] and arr[i+1]!=arr[i] ){
-                    
-                    break;
-                }
-            }
-        }
-        if(flag!=1){
-            return 1;
-        }
-        if(i==n-1){
-            return arr[n-1]+1;
-        }
-        return arr[i]+1;
+       int count=1;
+       for (int i=0;i<n;i++){
+           if (arr[i]==count)
+           count++;
+       }
+       return count;
         
     } 
 };
