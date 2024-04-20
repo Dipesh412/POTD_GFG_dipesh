@@ -11,40 +11,19 @@ class Solution{
     //Function to return a list containing the union of the two arrays. 
     vector<int> findUnion(int arr1[], int arr2[], int n, int m)
     {
-        vector<int>ans,result;
-        int i=0,j=0;
-        while(i<n && j<m){
-            if(arr1[i]<=arr2[j]){
-                ans.push_back(arr1[i]);
-                i++;
-            }
-            
-           
-            else {
-                ans.push_back(arr2[j]);
-                j++;
-            }
-            
+        set<int>st;
+        vector<int>v;
+        for(int i=0; i<n; i++){
+            st.insert(arr1[i]);
         }
-        while(i<n){
-            ans.push_back(arr1[i]);
-            i++;
+        for(int j=0; j<m; j++){
+            st.insert(arr2[j]);
         }
-        while(j<m){
-            ans.push_back(arr2[j]);
-            j++;
+        for(auto i:st){
+            v.push_back(i);
         }
-        result.push_back(ans[0]);
-        for(i=0; i<ans.size()-1; i++){
-        if(ans[i]!=ans[i+1]){
-            result.push_back(ans[i+1]);
-        }
-        
+        return v;
     }
-    
-    return result;
-    }
-    
 };
 
 //{ Driver Code Starts.
