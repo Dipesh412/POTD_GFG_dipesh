@@ -8,60 +8,57 @@ using namespace std;
 // User function Template for C++
 
 class Solution{
-    private:
-    vector<int> topoSort(int V, vector<int> adj[]){
-        int indegree[V] = {0};
-        for(int i=0; i<V; i++){
+
+    public:
+    vector<int>topoSort(int k,vector<int>adj[]){
+        vector<int>indegree(k,0);
+        for(int i=0; i<k; i++){
             for(auto it:adj[i]){
                 indegree[it]++;
             }
         }
         
         queue<int>q;
-        for(int i=0; i<V; i++){
+        vector<int>topo;
+        for(int i=0; i<k; i++){
             if(indegree[i]==0){
                 q.push(i);
             }
         }
-        
-        vector<int>topo;
         while(!q.empty()){
             int node = q.front();
-            q.pop();
             topo.push_back(node);
-            
-            // now node is in topo sort so remove it from indegree
-            for(auto it:adj[node]){
-                indegree[it]--;
-                if(indegree[it]==0) q.push(it);
-            }
-        }
-        return topo;
-    }
-    public:
-    string findOrder(string dict[], int N, int K) {
-        vector<int>adj[K];
-    
-        for(int i=0; i<N-1; i++){
-            string s1 = dict[i];
-            string s2 = dict[i+1];
-    
-            for(int j=0; j<min(s1.size(), s2.size()); j++){
-                if(s1[j] != s2[j]){
-                    adj[s1[j] - 'a'].push_back(s2[j] - 'a');
-                    break;
+            q.pop();
+            for(auto i:adj[node]){
+                indegree[i]--;
+                if(indegree[i]==0){
+                    q.push(i);
                 }
             }
         }
-    
-        vector<int> topo = topoSort(K, adj);
+        return topo;
         
-        string ans = "";
-        for(auto it:topo){
-            ans += char(it + 'a');
-        }
-    
-        return ans;
+    }
+    string findOrder(string dict[], int N, int k) {
+       vector<int>adj[k];
+       for(int i=0; i<N-1; i++){
+           string s1 = dict[i];
+           string s2 = dict[i+1];
+           int len = min(s1.size(),s2.size());
+           for(int p=0; p<len; p++){
+               if(s1[p]!=s2[p]){
+                   adj[s1[p]-'a'].push_back(s2[p]-'a');
+                   break;
+               }
+           }
+       }
+       
+       vector<int>topo = topoSort(k,adj);
+       string ans = "";
+       for(auto it:topo){
+           ans = ans+char(it+'a');
+       }
+       return ans;
     }
 };
 
