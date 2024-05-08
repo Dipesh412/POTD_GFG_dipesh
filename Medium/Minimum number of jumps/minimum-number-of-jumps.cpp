@@ -9,31 +9,34 @@ using namespace std;
 class Solution{
   public:
     int minJumps(int arr[], int n){
-        int maxR =arr[0];
-        int jump = 1;
+        int maxReach = arr[0];
         int step = arr[0];
-        if(n==1) return 0;
-        else if(arr[0]==0) return -1;
-        else{
+        int jump = 1;
+        if(n==1){
+            return 0;
+        }
+        if(arr[0]==0){
+            return -1;
+        }else{
             for(int i=1; i<n; i++){
                 if(i==n-1){
                     return jump;
                 }
-                maxR = max(maxR,arr[i]+i);
+                maxReach = max(maxReach,arr[i]+i);
                 step--;
                 if(step==0){
                     jump++;
-                    if(i>=maxR){
+                    if(i>=maxReach){
                         return -1;
                     }
-                    step = maxR-i;
+                    step = maxReach-i;
                 }
-                
             }
         }
-    
+        return jump;
     }
 };
+
 
 
 //{ Driver Code Starts.
