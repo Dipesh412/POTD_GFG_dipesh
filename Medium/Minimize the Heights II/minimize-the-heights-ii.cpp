@@ -21,7 +21,7 @@ class Solution {
             if(mi<0){
                 continue;
             }
-            ans =min(ans,mx-mi);
+            ans = min(ans,mx-mi);
         }
         return ans;
     }
